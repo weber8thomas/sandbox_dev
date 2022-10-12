@@ -1,0 +1,33 @@
+configfile: "config/config.yaml"
+
+
+output_list = (
+    ["test.txt", "test2.txt"] if config["GC_analysis"] == True else ["test.txt"]
+)
+
+
+rule all:
+    input:
+        output_list,
+
+
+rule estimate_ploidy:
+    output:
+        "test.txt",
+    log:
+        "test.log",
+    conda:
+        "envs/env.yaml"
+    shell:
+        "touch {output}"
+
+
+rule estimate_alfred:
+    output:
+        "test2.txt",
+    log:
+        "test2.log",
+    conda:
+        "envs/env2.yaml"
+    shell:
+        "touch {output}"

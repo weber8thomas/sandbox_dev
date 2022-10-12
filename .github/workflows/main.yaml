@@ -1,0 +1,43 @@
+#https://github.com/docker/build-push-action/blob/master/docs/advanced/tags-labels.md
+
+on:
+  push:
+    branches:
+      - dev
+
+
+jobs:
+  Formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Formatting
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_SNAKEMAKE_SNAKEFMT: true
+
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Linting
+        uses: snakemake/snakemake-github-action@v1.23.0
+        with:
+          directory: .
+          snakefile: ./workflow/Snakefile
+          args: "--lint"
+
+  Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Testing data
+        uses: snakemake/snakemake-github-action@v1.23.0
+        with:
+          directory: .
+          snakefile: ./workflow/Snakefile
+          stagein: "conda config --set channel_priority flexible"
+          args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
