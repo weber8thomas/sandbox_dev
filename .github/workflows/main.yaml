@@ -55,18 +55,18 @@ jobs:
         with:
           singularity-version: 3.8.3
 
-      - name: List vmlinuz
-        run: |
-          find /boot -maxdepth 1 -name "vmlinuz-[0-9].*"
+      # - name: List vmlinuz
+      #   run: |
+      #     find /boot -maxdepth 1 -name "vmlinuz-[0-9].*"
+      # # - name: Modify Namespace
+      # #   run: |
+      # #     vmlinuz=$(find /boot -maxdepth 1 -name "vmlinuz-[0-9].*" | head -n 1) &&
+      # #     grubby --args="namespace.unpriv_enable=1" \
+      # #     --update-kernel="$vmlinuz"
       # - name: Modify Namespace
       #   run: |
-      #     vmlinuz=$(find /boot -maxdepth 1 -name "vmlinuz-[0-9].*" | head -n 1) &&
-      #     grubby --args="namespace.unpriv_enable=1" \
-      #     --update-kernel="$vmlinuz"
-      - name: Modify Namespace
-        run: |
-          echo 1 > /proc/sys/kernel/unprivileged_userns_clone &&
-          echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
+      #     echo 1 > /proc/sys/kernel/unprivileged_userns_clone &&
+      #     echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
 
       - name: Testing data
         uses: snakemake/snakemake-github-action@v1.23.0
