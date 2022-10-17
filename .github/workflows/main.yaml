@@ -60,8 +60,8 @@ jobs:
       #     --update-kernel="$vmlinuz"
       - name: Modify Namespace
         run: |
-          echo 1 > /proc/sys/kernel/unprivileged_userns_clone &&
-          echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
+          sudo echo 1 > /proc/sys/kernel/unprivileged_userns_clone &&
+          sudo echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
 
       - name: Testing data
         uses: snakemake/snakemake-github-action@v1.23.0
