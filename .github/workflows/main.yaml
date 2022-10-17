@@ -52,10 +52,10 @@ jobs:
 
       - name: List vmlinuz
         run: |
-          ls /boot/vmlinuz-4*
+          find /boot -maxdepth 1 -name "vmlinuz-[0-9].*"
       - name: Modify Namespace
         run: |
-          vmlinuz=$(ls /boot/vmlinuz-4* | grep vmlinuz-4) && 
+          vmlinuz=$(find /boot -maxdepth 1 -name "vmlinuz-[0-9].*" | head -n 1) && 
           grubby --args="namespace.unpriv_enable=1" \
           --update-kernel="$vmlinuz"
 
