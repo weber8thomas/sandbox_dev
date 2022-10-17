@@ -1,6 +1,8 @@
 configfile: "config/config.yaml"
 
 
+containerized: "docker.io/weber8thomas/test:1.0.0"
+
 output_list = (
     ["test.txt", "test2.txt"] if config["GC_analysis"] == True else ["test.txt"]
 )

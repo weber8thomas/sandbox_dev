@@ -5,7 +5,6 @@ on:
     branches:
       - dev
 
-
 jobs:
   Formatting:
     runs-on: ubuntu-latest
@@ -41,3 +40,19 @@ jobs:
           snakefile: ./workflow/Snakefile
           stagein: "conda config --set channel_priority flexible"
           args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
+
+  Testing_singularity:
+    name: Test image
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+      - name: Testing data
+        uses: snakemake/snakemake-github-action@v1.23.0
+        with:
+          directory: .
+          snakefile: ./workflow/Snakefile
+          stagein: "conda config --set channel_priority flexible"
+          args: "--cores 1 --use-conda --use-singularity --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
