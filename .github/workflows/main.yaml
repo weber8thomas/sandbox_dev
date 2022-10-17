@@ -49,6 +49,16 @@ jobs:
       - uses: eWaterCycle/setup-singularity@v7
         with:
           singularity-version: 3.8.3
+
+      - name: List vmlinuz
+        run: |
+          ls /boot/vmlinuz-4*
+      - name: Modify Namespace
+        run: |
+          vmlinuz=$(ls /boot/vmlinuz-4* | grep vmlinuz-4) && 
+          grubby --args="namespace.unpriv_enable=1" \
+          --update-kernel="$vmlinuz"
+
       - name: Testing data
         uses: snakemake/snakemake-github-action@v1.23.0
         with:
