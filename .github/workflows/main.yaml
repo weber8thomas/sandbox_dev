@@ -57,7 +57,7 @@ jobs:
 
       - name: Test singularity
         run: |
-          singularity pull docker://hello-world:latest && singularity run docker://hello-world:latest
+          singularity pull docker://weber8thomas/ashleys-qc-pipeline:1.3.0 && singularity exec docker://weber8thomas/ashleys-qc-pipeline:1.3.0 sh -c "ls /conda-envs"
 
   # Testing_singularity:
   #   name: Test image
