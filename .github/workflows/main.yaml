@@ -45,9 +45,9 @@ jobs:
     name: Test image
     runs-on: ubuntu-20.04
 
-    container:
-      image: owasp/zap2docker-stable
-      options: --user root
+    # container:
+    #   image: owasp/zap2docker-stable
+    #   options: --user root
 
     steps:
       - uses: actions/checkout@v2
@@ -57,7 +57,7 @@ jobs:
 
       - name: Test singularity
         run: |
-          sudo apt-get update && sudo apt-get install squashfs-tools && singularity run docker://hello-world:latest
+          apt-get update && apt-get install squashfs-tools && singularity run docker://hello-world:latest
 
   # Testing_singularity:
   #   name: Test image
