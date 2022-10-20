@@ -41,7 +41,7 @@ jobs:
           stagein: "conda config --set channel_priority flexible"
           args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
 
-  Testing_singularity:
+  Testing_singularity_sandbox:
     name: Test image
     runs-on: ubuntu-20.04
 
@@ -55,23 +55,41 @@ jobs:
         with:
           singularity-version: 3.8.3
 
-      # - name: List vmlinuz
-      #   run: |
-      #     find /boot -maxdepth 1 -name "vmlinuz-[0-9].*"
-      # # - name: Modify Namespace
-      # #   run: |
-      # #     vmlinuz=$(find /boot -maxdepth 1 -name "vmlinuz-[0-9].*" | head -n 1) &&
-      # #     grubby --args="namespace.unpriv_enable=1" \
-      # #     --update-kernel="$vmlinuz"
-      # - name: Modify Namespace
-      #   run: |
-      #     echo 1 > /proc/sys/kernel/unprivileged_userns_clone &&
-      #     echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
+      - name: Test singularity
+        run: |
+          singularity run docker://hello-world:latest
 
-      - name: Testing data
-        uses: snakemake/snakemake-github-action@v1.23.0
-        with:
-          directory: .
-          snakefile: ./workflow/Snakefile
-          stagein: "conda config --set channel_priority flexible"
-          args: "--cores 1 --use-conda --use-singularity --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
+  # Testing_singularity:
+  #   name: Test image
+  #   runs-on: ubuntu-20.04
+
+  #   container:
+  #     image: owasp/zap2docker-stable
+  #     options: --user root
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: eWaterCycle/setup-singularity@v7
+  #       with:
+  #         singularity-version: 3.8.3
+
+  #     # - name: List vmlinuz
+  #     #   run: |
+  #     #     find /boot -maxdepth 1 -name "vmlinuz-[0-9].*"
+  #     # # - name: Modify Namespace
+  #     # #   run: |
+  #     # #     vmlinuz=$(find /boot -maxdepth 1 -name "vmlinuz-[0-9].*" | head -n 1) &&
+  #     # #     grubby --args="namespace.unpriv_enable=1" \
+  #     # #     --update-kernel="$vmlinuz"
+  #     # - name: Modify Namespace
+  #     #   run: |
+  #     #     echo 1 > /proc/sys/kernel/unprivileged_userns_clone &&
+  #     #     echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
+
+  #     - name: Testing data
+  #       uses: snakemake/snakemake-github-action@v1.23.0
+  #       with:
+  #         directory: .
+  #         snakefile: ./workflow/Snakefile
+  #         stagein: "conda config --set channel_priority flexible"
+  #         args: "--cores 1 --use-conda --use-singularity --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
