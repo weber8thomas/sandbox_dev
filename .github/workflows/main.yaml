@@ -57,7 +57,7 @@ jobs:
 
       - name: Test singularity
         run: |
-          apt-get update && apt-get install squashfs-tools && singularity run docker://hello-world:latest
+          singularity pull docker://hello-world:latest && singularity run docker://hello-world:latest
 
   # Testing_singularity:
   #   name: Test image
