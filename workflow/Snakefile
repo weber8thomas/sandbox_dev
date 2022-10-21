@@ -3,10 +3,7 @@ configfile: "config/config.yaml"
 
 containerized: "docker://alpine:latest"
 
-output_list = (
-    ["test2.sort.bam"] if config["sort"] == True else ["test.txt"]
-)
-
+output_list = ["test2.bam"]
 
 rule all:
     input:
