@@ -55,6 +55,27 @@ jobs:
         with:
           singularity-version: 3.8.3
 
+      - name: Testing data
+        uses: snakemake/snakemake-github-action@v1.24.0
+        with:
+          directory: .
+          snakefile: ./workflow/Snakefile
+          args: "--cores 1 --use-singularity -p --verbose --debug"
+
+  Testing_singularity_sandbox:
+    name: Test image
+    runs-on: ubuntu-20.04
+
+    # container:
+    #   image: owasp/zap2docker-stable
+    #   options: --user root
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+
       - name: Test singularity
         run: |
           singularity pull docker://weber8thomas/ashleys-qc-pipeline:1.3.0 && singularity exec docker://weber8thomas/ashleys-qc-pipeline:1.3.0 sh -c "ls /conda-envs"

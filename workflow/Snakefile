@@ -4,7 +4,7 @@ configfile: "config/config.yaml"
 containerized: "docker://alpine:latest"
 
 output_list = (
-    ["test.txt", "test2.txt"] if config["GC_analysis"] == True else ["test.txt"]
+    ["test2.sort.bam"] if config["sort"] == True else ["test.txt"]
 )
 
 
@@ -13,23 +13,14 @@ rule all:
         output_list,
 
 
-rule estimate_ploidy:
+rule bwa:
     output:
-        "test.txt",
+        "test2.fastq",
     log:
-        "test.log",
+        "test2.bam",
     conda:
         "envs/env.yaml"
     shell:
-        "touch {output}"
+        "echo TOTO > {output}"
 
 
-rule estimate_alfred:
-    output:
-        "test2.txt",
-    log:
-        "test2.log",
-    conda:
-        "envs/env2.yaml"
-    shell:
-        "touch {output}"

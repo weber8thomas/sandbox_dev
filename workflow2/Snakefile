@@ -1,0 +1,17 @@
+output_list=["test2.txt"]
+
+rule all:
+    output_list
+
+
+rule samtools:
+    input:
+        "test2.bam",
+    output:
+        "test2.sort.bam",
+    container:
+        "docker://biocontainers/samtools:latest"
+    shell:
+        "samtools sort {input} -o {output}"
+    # conda:
+    #     "envs/env2.yaml"
