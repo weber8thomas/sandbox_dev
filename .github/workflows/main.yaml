@@ -41,7 +41,7 @@ jobs:
   #         stagein: "conda config --set channel_priority flexible"
   #         args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
 
-  Testing_singularity_sandbox:
+  Testing_singularity_snakemake:
     name: Test image
     runs-on: ubuntu-20.04
 
