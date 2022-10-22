@@ -23,12 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Create container file
-        uses: snakemake/snakemake-github-action@v1
-        with:
-          snakefile: "./workflow/Snakefile"
-          task: "containerize"
-          args: "--cores 1 --use-conda --configfile ./config/config.yaml --config GC_analysis=True"
+      # - name: Create container file
+      #   uses: snakemake/snakemake-github-action@v1
+      #   with:
+      #     snakefile: "./workflow/Snakefile"
+      #     task: "containerize"
+      #     args: "--cores 1 --use-conda --configfile ./config/config.yaml --config GC_analysis=True"
 
       - name: Print Dockerfile
         run: |
@@ -40,7 +40,6 @@ jobs:
         with:
           file: "./config/config.yaml"
           key-path: '["version"]' # Access the runs key then the using key and retuns the value.
-
 
       # - name: Bump version and push tag
       #   id: tag_version
@@ -75,3 +74,19 @@ jobs:
 
       - name: Use the image
         run: echo "New images has been pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
+
+  # test_container:
+  #   name: Test image
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: eWaterCycle/setup-singularity@v7
+  #       with:
+  #         singularity-version: 3.8.3
+  #     - name: Testing data
+  #       uses: snakemake/snakemake-github-action@v1.23.0
+  #       with:
+  #         directory: .
+  #         snakefile: ./workflow/Snakefile
+  #         stagein: "conda config --set channel_priority flexible"
+  #         args: "--cores 1 --use-conda --use-singularity --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
