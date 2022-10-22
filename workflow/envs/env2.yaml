@@ -1,6 +1,51 @@
-name: test2
+name: rtools
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
+  - r
+  - anaconda
 dependencies:
   - alfred
+  - ashleys-qc
+  - bioconductor-edger
+  - bioconductor-genomicranges
+  - bwa
+  - fastqc
+  - fonts-anaconda
+  - mosaicatcher
+  - pandas
+  - r-assertthat
+  - r-base
+  - r-cairo
+  - r-cowplot
+  - r-data.table
+  - r-ggplot2
+  - r-r.utils
+  - r-rcolorbrewer
+  - r-reshape2
+  - r-scales
+  - sambamba
+  - samtools
+  - tabix
+  # - bioconductor-biocparallel
+  # - bioconductor-bsgenome
+  # - bioconductor-bsgenome.hsapiens.ucsc.hg19
+  # - bioconductor-bsgenome.hsapiens.ucsc.hg38
+  # - bioconductor-complexheatmap
+  # - bioconductor-fastseg
+  # - bioconductor-genomicalignments
+  # - bioconductor-rsamtools
+  # - bioconductor-s4vectors
+  # - pysam
+  # - r-biocmanager
+  # - r-devtools
+  # - r-doparallel
+  # - r-dplyr
+  # - r-foreach
+  # - r-gplots
+  # - r-gtools
+  # - r-mc2d
+  # - r-pheatmap
+  # - r-stringr
+  # - r-zoo
+  # NEW
