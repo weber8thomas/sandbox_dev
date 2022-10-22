@@ -23,12 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Create container file
-        uses: snakemake/snakemake-github-action@v1
-        with:
-          snakefile: "./workflow/Snakefile"
-          task: "containerize"
-          args: "--cores 1 --use-conda --configfile ./config/config.yaml --config GC_analysis=True"
+      # - name: Create container file
+      #   uses: snakemake/snakemake-github-action@v1
+      #   with:
+      #     snakefile: "./workflow/Snakefile"
+      #     task: "containerize"
+      #     args: "--cores 1 --use-conda --configfile ./config/config.yaml --config GC_analysis=True"
 
       - name: Print Dockerfile
         run: |
