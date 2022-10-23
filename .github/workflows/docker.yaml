@@ -38,7 +38,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Dockerfile_artifact
-          path: ./Dockerfile
+          path: ./Dockerfile_artifact
 
   show_container:
     name: Build and push image
@@ -51,11 +51,11 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: Dockerfile_artifact
-          path: ./Dockerfile
+          path: ./Dockerfile_artifact
 
       - name: Print Dockerfile
         run: |
-          ls -lh . && tree -h . && cat Dockerfile
+          ls -lh . && tree -h . && cat ./Dockerfile_artifact/Dockerfile
 
       - name: Run read-yaml action
         id: yaml-data
@@ -74,7 +74,7 @@ jobs:
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ steps.yaml-data.outputs.data }}
           dockerfiles: |
-            ./Dockerfile
+            ./Dockerfile_artifact/Dockerfile
 
       - name: Push To DockerHub
         id: push-to-dockerhub
