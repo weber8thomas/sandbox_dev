@@ -69,7 +69,7 @@ jobs:
           name: my-artifact
           path: path/to/artifact
 
-      - run: tree -h cat && cat path/to/artifact/world.txt
+      - run: tree -h . && cat path/to/artifact/world.txt
 
   # Testing_singularity_snakemake:
   #   name: Test image
