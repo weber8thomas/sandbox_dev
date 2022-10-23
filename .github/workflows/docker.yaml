@@ -16,36 +16,8 @@ env:
   IMAGE_NAME: test
 
 jobs:
-  create_file:
-    name: Create file
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v1
-
-      - run: mkdir -p path/to/artifact
-
-      - run: echo hello > path/to/artifact/world.txt
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: my-artifact
-          path: path/to/artifact
-
-  use_file:
-    name: Use file
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@master
-
-      - uses: actions/download-artifact@master
-        with:
-          name: my-artifact
-          path: path/to/artifact
-
-      - run: tree -h cat && cat path/to/artifact/world.txt
-
   create_dockerfile:
-    name: Build and push image
+    name: Create Dockerfile
     runs-on: ubuntu-20.04
 
     steps:
@@ -57,7 +29,7 @@ jobs:
           directory: .
           snakefile: "./workflow/Snakefile"
           task: "containerize"
-          args: "--cores 1 --use-conda --configfile ./config/config.yaml --config GC_analysis=True"
+          args: "--cores 1 --use-conda --configfile ./config/config.yaml"
 
       - uses: actions/upload-artifact@master
         with:
@@ -75,7 +47,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: Dockerfile
-          path: Dockefile
+          path: ./Dockefile
 
       - name: Print Dockerfile
         run: |
