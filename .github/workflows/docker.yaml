@@ -33,7 +33,7 @@ jobs:
 
       - name: Print Dockerfile
         run: |
-          cat Dockerfile
+          ls -lh . && cat Dockerfile && tree -h .
 
       - uses: actions/upload-artifact@master
         with:
