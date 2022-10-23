@@ -31,10 +31,14 @@ jobs:
           task: "containerize"
           args: "--cores 1 --use-conda --configfile ./config/config.yaml"
 
+      - name: Print Dockerfile
+        run: |
+          cat Dockerfile
+
       - uses: actions/upload-artifact@master
         with:
           name: Dockerfile
-          path: ./Dockefile
+          path: Dockefile
 
   show_container:
     name: Build and push image
@@ -47,7 +51,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: Dockerfile
-          path: ./Dockefile
+          path: Dockefile
 
       - name: Print Dockerfile
         run: |
