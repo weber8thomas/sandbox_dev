@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/upload-artifact@master
         with:
-          name: Dockerfile
+          name: Dockerfile_artifact
           path: ./Dockerfile
 
   show_container:
@@ -50,12 +50,12 @@ jobs:
 
       - uses: actions/download-artifact@master
         with:
-          name: Dockerfile
+          name: Dockerfile_artifact
           path: ./Dockerfile
 
       - name: Print Dockerfile
         run: |
-          cat Dockerfile
+          ls -lh . && tree -h . && cat Dockerfile
 
       - name: Run read-yaml action
         id: yaml-data
