@@ -33,12 +33,12 @@ jobs:
 
       - name: Print Dockerfile
         run: |
-          ls -lh . && cat Dockerfile && tree -h .
+          cat Dockerfile
 
       - uses: actions/upload-artifact@master
         with:
           name: Dockerfile
-          path: Dockefile
+          path: ./Dockerfile
 
   show_container:
     name: Build and push image
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: Dockerfile
-          path: Dockefile
+          path: ./Dockerfile
 
       - name: Print Dockerfile
         run: |
