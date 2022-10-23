@@ -57,6 +57,8 @@ jobs:
           path: path/to/artifact
 
   use_file:
+    needs:
+      - create_file
     name: Use file
     runs-on: ubuntu-20.04
     steps:
