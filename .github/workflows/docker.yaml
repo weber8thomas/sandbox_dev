@@ -38,7 +38,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Dockerfile_artifact
-          path: ./Dockerfile_artifact
+          path: ./Dockerfile
 
   show_container:
     name: Build and push image
