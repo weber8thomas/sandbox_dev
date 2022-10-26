@@ -1,0 +1,6 @@
+# GENECORE
+genecore: True
+samples_to_process: []
+genecore_prefix: "/g/korbel/shared/genecore"
+genecore_date_folder: "2022-09-01-HVHFGAFX3"
+data_location: "/scratch/tweber/DATA/MC_DATA/TEST"
