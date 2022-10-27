@@ -29,47 +29,47 @@ jobs:
   #         snakefile: ./workflow/Snakefile
   #         args: "--lint"
 
-  # Testing:
-  #   runs-on: ubuntu-latest
+  Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Testing data
+        uses: snakemake/snakemake-github-action@v1.23.0
+        with:
+          directory: .
+          snakefile: ./workflow/Snakefile
+          stagein: "conda config --set channel_priority flexible"
+          args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
+
+  # create_file:
+  #   name: Create file
+  #   runs-on: ubuntu-20.04
   #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Testing data
-  #       uses: snakemake/snakemake-github-action@v1.23.0
+  #     - uses: actions/checkout@v1
+
+  #     - run: mkdir -p path/to/artifact
+
+  #     - run: echo hello > path/to/artifact/world.txt
+
+  #     - uses: actions/upload-artifact@master
   #       with:
-  #         directory: .
-  #         snakefile: ./workflow/Snakefile
-  #         stagein: "conda config --set channel_priority flexible"
-  #         args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
+  #         name: my-artifact
+  #         path: path/to/artifact
 
-  create_file:
-    name: Create file
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v1
+  # use_file:
+  #   needs:
+  #     - create_file
+  #   name: Use file
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@master
 
-      - run: mkdir -p path/to/artifact
+  #     - uses: actions/download-artifact@master
+  #       with:
+  #         name: my-artifact
+  #         path: path/to/artifact
 
-      - run: echo hello > path/to/artifact/world.txt
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: my-artifact
-          path: path/to/artifact
-
-  use_file:
-    needs:
-      - create_file
-    name: Use file
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@master
-
-      - uses: actions/download-artifact@master
-        with:
-          name: my-artifact
-          path: path/to/artifact
-
-      - run: tree -h . && cat path/to/artifact/world.txt
+  #     - run: tree -h . && cat path/to/artifact/world.txt
 
   # Testing_singularity_snakemake:
   #   name: Test image
@@ -91,7 +91,31 @@ jobs:
   #         directory: .
   #         snakefile: ./workflow/Snakefile
   #         args: "--cores 1 --use-singularity -p --verbose --debug"
+  Testing_singularity_snakemake:
+    name: Test image
+    runs-on: ubuntu-20.04
 
+    # container:
+    #   image: owasp/zap2docker-stable
+    #   options: --user root
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          mamba-version: "*"
+          channels: conda-forge,bioconda,defaults
+          channel-priority: true
+          environment-file: test.yaml
+          activate-environment: snakemake_env
+      - run: |
+          conda info
+          conda list
+          snakemake
   # Testing_singularity_sandbox:
   #   name: Test image
   #   runs-on: ubuntu-20.04
