@@ -110,7 +110,7 @@ jobs:
           mamba-version: "*"
           channels: conda-forge,bioconda,defaults
           channel-priority: true
-          environment-file: test.yaml
+          environment-file: env.yaml
           activate-environment: snakemake_env
       - run: |
           conda info
