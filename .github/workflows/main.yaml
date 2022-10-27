@@ -118,7 +118,10 @@ jobs:
           conda list
       - shell: bash -l {0}
         name: Activate snakemake_env
-        run: mamba activate snakemake_env && snakemake --version
+        run: |
+          conda init bash
+          mamba activate snakemake_env
+          snakemake --version
   # Testing_singularity_sandbox:
   #   name: Test image
   #   runs-on: ubuntu-20.04
