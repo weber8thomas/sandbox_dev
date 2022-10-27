@@ -112,11 +112,13 @@ jobs:
           channel-priority: true
           environment-file: env.yaml
           activate-environment: snakemake_env
-      - run: |
+      - shell: bash -l {0}
+        run: |
           conda info
           conda list
-      - name: Activate snakemake_env
-        run: conda activate snakemake_env && snakemake --version
+      - shell: bash -l {0}
+        name: Activate snakemake_env
+        run: mamba activate snakemake_env && snakemake --version
   # Testing_singularity_sandbox:
   #   name: Test image
   #   runs-on: ubuntu-20.04
