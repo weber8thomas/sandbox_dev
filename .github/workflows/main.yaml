@@ -116,10 +116,10 @@ jobs:
         run: |
           conda info
           conda list
+          mamba init bash
       - shell: bash -l {0}
         name: Activate snakemake_env
         run: |
-          conda init bash
           mamba activate snakemake_env
           snakemake --version
   # Testing_singularity_sandbox:
