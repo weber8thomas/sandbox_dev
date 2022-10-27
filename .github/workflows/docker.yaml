@@ -1,13 +1,13 @@
 name: Build container
 
 on:
-  push:
-    #   tags:
-    #     - "*"
-    # pull_request:
-    #   types: [closed]
-    branches:
-      - dev
+  # push:
+  #   tags:
+  #     - "*"
+  pull_request:
+    types: [closed]
+    # branches:
+    #   - dev
   # - master
   # paths:
   #   - "github-actions-runner/Dockerfile"
