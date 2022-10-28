@@ -1,24 +1,51 @@
 # configfile: "config/config.yaml"
 
-
-
-containerized: "docker://ubuntu:latest"
-
-output_list = ["test2.bam"]
+output_list = [e.format(i=i) for i in range(10) for e in ["test{i}.sam", "test{i}.fastqc"]]
 
 rule all:
     input:
         output_list,
 
 
-rule bwa:
+# rule bwa:
+#     output:
+#         "test{index}.bam",
+#     conda:
+#         "envs/env.yaml"
+#     container:
+#         "docker://biocontainers/bwa:v0.7.17_cv1"
+#     shell:
+#         """
+#         bwa mem > {output}
+#         """
+
+
+
+rule fastqc:
     output:
-        "test2.fastq",
-    log:
-        "test2.bam",
+        "test{index}.fastqc",
     conda:
         "envs/env.yaml"
+    container:
+        "docker://biocontainers/fastqc:v0.11.9_cv8"
     shell:
-        "echo TOTO > {output}"
+        """
+        fastqc --help > {output}
+        """
+
+
+
+
+rule samtools:
+    output:
+        "test{index}.sam",
+    conda:
+        "envs/env.yaml"
+    container:
+        "docker://biocontainers/samtools:v1.9-4-deb_cv1"
+    shell:
+        """
+        samtools --help > {output}
+        """
 
 
