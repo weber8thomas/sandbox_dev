@@ -13,10 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: TestTEST
         run: |
-          echo ${GITHUB_PATH}
-          echo $PATH
-          ls ${GITHUB_PATH}
-          ls {GITHUB_PATH}/.tests/data_CHR17/RPE-BM510
+          ls /home/runner/work/sandbox_dev/sandbox_dev/
   # Formatting:
   #   runs-on: ubuntu-latest
   #   steps:
