@@ -13,8 +13,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: TestTEST
         run: |
-        echo ${GITHUB_PATH}
-        echo $PATH
+          echo ${GITHUB_PATH}
+          echo $PATH
   # Formatting:
   #   runs-on: ubuntu-latest
   #   steps:
