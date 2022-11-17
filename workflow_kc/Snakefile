@@ -1,6 +1,6 @@
 # mkdir data && touch data/A_1A.fastq && touch data/A_2A.fastq && touch data/B_1B.fastq && touch data/B_2B.fastq
 
-
+configfile: "config/config.yaml"
 
 report: "report/workflow.rst"
 

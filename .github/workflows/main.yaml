@@ -1,4 +1,5 @@
 #https://github.com/docker/build-push-action/blob/master/docs/advanced/tags-labels.md
+name: Snakemake dev
 
 on:
   push:
@@ -6,6 +7,14 @@ on:
       - dev
 
 jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: TestTEST
+        run: |
+        echo ${GITHUB_PATH}
+        echo $PATH
   # Formatting:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -29,17 +38,17 @@ jobs:
   #         snakefile: ./workflow/Snakefile
   #         args: "--lint"
 
-  Testing:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Testing data
-        uses: snakemake/snakemake-github-action@v1.23.0
-        with:
-          directory: .
-          snakefile: ./workflow/Snakefile
-          stagein: "conda config --set channel_priority flexible"
-          args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
+  # Testing:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Testing data
+  #       uses: snakemake/snakemake-github-action@v1.23.0
+  #       with:
+  #         directory: .
+  #         snakefile: ./workflow/Snakefile
+  #         stagein: "conda config --set channel_priority flexible"
+  #         args: "--cores 1 --use-conda --config GC_analysis=True --conda-frontend mamba -p --verbose --debug"
 
   # create_file:
   #   name: Create file
